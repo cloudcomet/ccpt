@@ -25,7 +25,7 @@ public class java1 {
             
         // }
         // System.out.print(n);
-        System.out.println(s1.);
+        //System.out.println(s1.);
         
         sc.close();
     }
