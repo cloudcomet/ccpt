@@ -1,0 +1,52 @@
+exception handling 
+    checked and unchecked 
+try catch finally
+throw and throws
+throw: 
+    used to throw an exception explicitly from a method or block of code.
+    It is followed by an instance of the Throwable class or its subclasses.
+    It can be used to create custom exceptions or to re-throw exceptions caught in a catch block.
+    Example:
+        throw new IllegalArgumentException("Invalid argument");
+throws:
+    used in the method signature to declare that a method may throw one or more exceptions.
+    It is followed by a comma-separated list of exception types that the method may throw.
+    It is used to indicate that the caller of the method should handle or propagate the declared exceptions.
+    Example:
+        public void myMethod() throws IOException, SQLException {
+            // method implementation
+        }   
+
+
+
+
+            import java.util.InputMismatchException;
+            import java.util.Scanner;
+
+            class InsufficientBalanceException extends Exception{
+
+                InsufficientBalanceException(String message){
+                    super(message);
+                }
+            }
+
+            public class Main {
+
+                public static void main(String[] args) {
+
+                    Scanner input = new Scanner(System.in);
+
+                    try{
+                        if (input.nextInt() >= 1000){
+                            throw new InsufficientBalanceException("Insufficient balance");
+                        }
+                    }
+                    catch (InsufficientBalanceException e){
+                        System.out.println(e.getMessage());
+                    }
+                    catch (Exception e){
+                        System.out.println(e.getMessage());
+                    }
+
+                }
+            }
