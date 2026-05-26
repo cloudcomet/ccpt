@@ -47,6 +47,8 @@ public class Except {
             end--;
         }
         return maxValue;
+    }    catch (Exception e){
+        throw new RuntimeException("Array is empty");
     }
 }
 
