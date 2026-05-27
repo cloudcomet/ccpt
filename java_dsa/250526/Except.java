@@ -41,7 +41,7 @@ public class Except {
                 maxValue = arr[end];
             }
 
-            Thread t = new Thread();
+          //  Thread t = new Thread();
 
             start++;
             end--;

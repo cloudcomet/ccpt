@@ -30,6 +30,6 @@ public class Revarray {
         Scanner input = new Scanner(System.in);
 
         System.out.println(sum(new int[]{1, 2, 3, 4, 5}, 0));
-
+        input.close();
     }
 }

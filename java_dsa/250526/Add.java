@@ -24,5 +24,6 @@ public static void main(String[] args) {
         arr[i] = sc.nextInt();
     }
     System.out.println("Sum of elements: " + add(arr));
+    sc.close();
 }
 }

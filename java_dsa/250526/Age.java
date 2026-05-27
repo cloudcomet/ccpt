@@ -14,6 +14,7 @@ public class Age {
     if (input.nextInt() >= 18){
         throw new InvalidAgeException("Invalid age");
     }
+    input.close();
     }
     catch (InvalidAgeException e){
         System.out.println(e.getMessage());
@@ -21,6 +22,8 @@ public class Age {
     catch (Exception e){
         System.out.println(e.getMessage());
         }
-}
+        
+    }
+
 }
 
