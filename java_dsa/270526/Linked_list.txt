@@ -1,0 +1,325 @@
+================================================================================
+                          LINKED LIST - DETAILED NOTES
+================================================================================
+
+1. INTRODUCTION TO LINKED LISTS
+================================================================================
+A Linked List is a linear data structure where elements (nodes) are connected
+via pointers/references rather than stored contiguously in memory.
+
+Key Characteristics:
+- Dynamic size (grows/shrinks at runtime)
+- Non-contiguous memory allocation
+- Access is sequential (O(n) time)
+- Insertion/Deletion is efficient if position is known (O(1) time)
+
+2. NODE STRUCTURE
+================================================================================
+Each node contains:
+  - DATA: The value/information stored
+  - NEXT: Reference/pointer to the next node
+
+Example Node Class (Java):
+  class Node {
+      int data;
+      Node next;
+      
+      Node(int data) {
+          this.data = data;
+          this.next = null;
+      }
+  }
+
+3. TYPES OF LINKED LISTS
+================================================================================
+
+A) SINGLY LINKED LIST
+   - Each node points to the next node only
+   - Last node points to null
+   
+   Diagram:
+   [10|next]-->[20|next]-->[30|next]-->[40|null]
+    ^
+   HEAD
+   
+   Operations:
+   - Insertion at beginning: O(1)
+   - Insertion at end: O(n) or O(1) with tail pointer
+   - Deletion at beginning: O(1)
+   - Search: O(n)
+
+B) DOUBLY LINKED LIST
+   - Each node has references to both next and previous nodes
+   
+   Diagram:
+   null<--[10]<-->[20]<-->[30]<-->[40]-->null
+          HEAD                      TAIL
+   
+   Advantages:
+   - Can traverse in both directions
+   - Easier insertion/deletion
+   - More memory per node
+
+C) CIRCULAR LINKED LIST
+   - Last node points back to first node
+   
+   Diagram:
+   [10|next]-->[20|next]-->[30|next]-->[40|next]
+    ^                                      |
+    +--------------------------------------+
+   
+   Uses:
+   - Round-robin scheduling
+   - Music playlist (next/previous)
+
+4. BASIC OPERATIONS WITH EXAMPLES
+================================================================================
+
+A) INSERTION AT BEGINNING
+   
+   Original List: 10 -> 20 -> 30 -> null
+   Insert 5 at beginning:
+   
+   Step 1: Create new node with data 5
+   Step 2: Set new node's next to current HEAD
+   Step 3: Update HEAD to point to new node
+   
+   Result: 5 -> 10 -> 20 -> 30 -> null
+   
+   Code Example:
+   void insertAtBeginning(int data) {
+       Node newNode = new Node(data);
+       newNode.next = head;
+       head = newNode;
+   }
+   Time: O(1), Space: O(1)
+
+B) INSERTION AT END
+   
+   Original List: 10 -> 20 -> 30 -> null
+   Insert 40 at end:
+   
+   Step 1: Create new node with data 40
+   Step 2: Traverse to last node (next == null)
+   Step 3: Update last node's next to new node
+   
+   Result: 10 -> 20 -> 30 -> 40 -> null
+   
+   Code Example:
+   void insertAtEnd(int data) {
+       Node newNode = new Node(data);
+       if (head == null) {
+           head = newNode;
+           return;
+       }
+       Node current = head;
+       while (current.next != null) {
+           current = current.next;
+       }
+       current.next = newNode;
+   }
+   Time: O(n), Space: O(1)
+
+C) INSERTION AT SPECIFIC POSITION
+   
+   Original List: 10 -> 20 -> 30 -> null
+   Insert 15 at position 2 (after 10):
+   
+   Step 1: Find node at position 1
+   Step 2: Create new node
+   Step 3: Update pointers
+   
+   Result: 10 -> 15 -> 20 -> 30 -> null
+   
+   Code Example:
+   void insertAtPosition(int position, int data) {
+       if (position == 1) {
+           insertAtBeginning(data);
+           return;
+       }
+       Node current = head;
+       Node newNode = new Node(data);
+       for (int i = 1; i < position - 1 && current != null; i++) {
+           current = current.next;
+       }
+       if (current != null) {
+           newNode.next = current.next;
+           current.next = newNode;
+       }
+   }
+   Time: O(n), Space: O(1)
+
+D) DELETION AT BEGINNING
+   
+   Original List: 10 -> 20 -> 30 -> null
+   Delete first element:
+   
+   Step 1: Move HEAD to next node
+   
+   Result: 20 -> 30 -> null
+   
+   Code Example:
+   void deleteAtBeginning() {
+       if (head != null) {
+           head = head.next;
+       }
+   }
+   Time: O(1), Space: O(1)
+
+E) DELETION AT END
+   
+   Original List: 10 -> 20 -> 30 -> null
+   Delete last element:
+   
+   Step 1: Find second-last node
+   Step 2: Set its next to null
+   
+   Result: 10 -> 20 -> null
+   
+   Code Example:
+   void deleteAtEnd() {
+       if (head == null || head.next == null) {
+           head = null;
+           return;
+       }
+       Node current = head;
+       while (current.next.next != null) {
+           current = current.next;
+       }
+       current.next = null;
+   }
+   Time: O(n), Space: O(1)
+
+F) SEARCH/TRAVERSAL
+   
+   List: 10 -> 20 -> 30 -> 40 -> null
+   Search for 30:
+   
+   Step 1: Start from HEAD
+   Step 2: Compare each node with target
+   Step 3: Return true if found, false otherwise
+   
+   Code Example:
+   boolean search(int target) {
+       Node current = head;
+       while (current != null) {
+           if (current.data == target) {
+               return true;
+           }
+           current = current.next;
+       }
+       return false;
+   }
+   Time: O(n), Space: O(1)
+
+5. COMPLEXITY ANALYSIS
+================================================================================
+
+Operation           | Singly LL | Doubly LL | Circular LL
+--------------------|-----------|-----------|---------------
+Access by index     |    O(n)   |   O(n)    |   O(n)
+Search              |    O(n)   |   O(n)    |   O(n)
+Insert at begin     |    O(1)   |   O(1)    |   O(1)
+Insert at end       |    O(n)*  |   O(1)**  |   O(1)**
+Insert at position  |    O(n)   |   O(n)    |   O(n)
+Delete at begin     |    O(1)   |   O(1)    |   O(1)
+Delete at end       |    O(n)   |   O(1)    |   O(n)**
+Delete at position  |    O(n)   |   O(n)    |   O(n)
+Space               |    O(n)   |   O(n)    |   O(n)
+
+* With tail pointer: O(1)
+** Last node needs to point to first
+
+6. ADVANTAGES & DISADVANTAGES
+================================================================================
+
+ADVANTAGES:
+✓ Dynamic size allocation
+✓ Efficient insertion/deletion (if position is known)
+✓ No memory wastage
+✓ Easy to implement stacks and queues
+✓ Can grow indefinitely
+
+DISADVANTAGES:
+✗ No random access (must traverse)
+✗ Extra memory for pointers
+✗ Slower than arrays for access
+✗ Cannot easily reverse (except doubly/circular)
+✗ Cache unfriendly (non-contiguous memory)
+
+7. APPLICATIONS
+================================================================================
+- Implementation of Stacks and Queues
+- Undo/Redo functionality in applications
+- Music playlists (circular linked lists)
+- Adjacency lists in graphs
+- Polynomial representation
+- Browser history (forward/backward buttons)
+- Memory management in operating systems
+
+8. COMPLETE EXAMPLE CODE
+================================================================================
+
+class LinkedList {
+    class Node {
+        int data;
+        Node next;
+        Node(int data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+    
+    Node head;
+    
+    void insertAtBeginning(int data) {
+        Node newNode = new Node(data);
+        newNode.next = head;
+        head = newNode;
+    }
+    
+    void insertAtEnd(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+        Node current = head;
+        while (current.next != null) {
+            current = current.next;
+        }
+        current.next = newNode;
+    }
+    
+    void deleteAtBeginning() {
+        if (head != null) {
+            head = head.next;
+        }
+    }
+    
+    void display() {
+        Node current = head;
+        System.out.print("List: ");
+        while (current != null) {
+            System.out.print(current.data + " -> ");
+            current = current.next;
+        }
+        System.out.println("null");
+    }
+    
+    public static void main(String[] args) {
+        LinkedList list = new LinkedList();
+        list.insertAtEnd(10);
+        list.insertAtEnd(20);
+        list.insertAtEnd(30);
+        list.display();        // List: 10 -> 20 -> 30 -> null
+        
+        list.insertAtBeginning(5);
+        list.display();        // List: 5 -> 10 -> 20 -> 30 -> null
+        
+        list.deleteAtBeginning();
+        list.display();        // List: 10 -> 20 -> 30 -> null
+    }
+}
+
+================================================================================
