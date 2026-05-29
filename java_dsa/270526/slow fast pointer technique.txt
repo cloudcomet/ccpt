@@ -1,0 +1,47 @@
+slow fast pointer technique:
+
+1. CONCEPT:
+   - Two pointers moving at different speeds through a data structure (usually linked list or array)
+   - Slow pointer: moves 1 step at a time
+   - Fast pointer: moves 2 or more steps at a time
+   - Used to detect cycles, find middle element, or merge operations
+
+2. COMMON APPLICATIONS:
+   a) Cycle Detection in Linked List (Floyd's Algorithm):
+      - If list has cycle, fast pointer will eventually catch slow pointer
+      - Time: O(n), Space: O(1)
+   
+   b) Find Middle of Linked List:
+      - When fast reaches end, slow is at middle
+      - Time: O(n), Space: O(1)
+   
+   c) Remove Nth Node from End:
+      - Create gap of n nodes between pointers
+      - When fast reaches end, slow is at node before target
+   
+   d) Palindrome Check:
+      - Find middle, reverse second half, compare both halves
+
+3. IMPLEMENTATION PATTERN:
+   ```
+   slow = head
+   fast = head
+   
+   while (fast != null && fast.next != null) {
+       slow = slow.next
+       fast = fast.next.next
+   }
+   // Now process based on requirement
+   ```
+
+4. KEY POINTS:
+   - Always check fast and fast.next before moving fast
+   - Handles both even and odd length lists gracefully
+   - Space efficient - no extra data structure needed
+   - Time complexity typically O(n) with single pass
+
+5. EXAMPLE - Detect Cycle:
+   - If cycle exists: fast and slow will meet at some node
+   - If no cycle: fast will reach null
+   - Distance traveled: slow = k, fast = 2k when they meet
+    
