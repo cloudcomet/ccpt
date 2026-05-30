@@ -1,9 +1,7 @@
-import java.util.Arrays;
+// import java.util.Arrays;
 public class Bubblesort {
 
-public class Main {
-
-    public static int[] bubbleSort(int[] arr){
+    public static int[] bubblesort(int[] arr){
 
         for(int row = 0; row < arr.length; row++){
             for (int col = 0; col < arr.length-row-1; col++){
@@ -21,7 +19,7 @@ public class Main {
     public static void main(String[] args){
 
         int[] arr = {3, 2, 1, 6, 0};
-        int[] result = bubbleSort(arr);
+        int[] result = bubblesort(arr);
 
         for(int x : result){
             System.out.println(x);
@@ -29,4 +27,4 @@ public class Main {
     }
 
 }
-}
+
